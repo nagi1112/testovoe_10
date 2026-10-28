@@ -7,7 +7,7 @@ from payment_service.models import Payment
 
 
 class PaymentRepository:
-    """Queries and writes payment persistence models using a caller-owned transaction."""
+    """Читает и записывает модели платежей в транзакции, созданной вызывающим кодом."""
 
     def __init__(self, session: AsyncSession) -> None:
         self._session = session

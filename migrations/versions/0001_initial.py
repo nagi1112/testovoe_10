@@ -1,4 +1,4 @@
-"""Create payment and outbox tables.
+"""Создаёт таблицы платежей и outbox.
 
 Revision ID: 0001_initial
 Revises:

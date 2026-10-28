@@ -14,11 +14,11 @@ logger = logging.getLogger(__name__)
 
 
 class IdempotencyConflict(Exception):
-    """The key was previously used for a different payment request."""
+    """Ключ ранее использовался для другого запроса на платёж."""
 
 
 class PaymentPersistenceUnavailable(Exception):
-    """The payment and outbox row could not be persisted."""
+    """Не удалось сохранить платёж и запись outbox."""
 
 
 def request_fingerprint(payload: PaymentCreate) -> str:
@@ -32,7 +32,7 @@ class PaymentApplicationService:
         self._payments = PaymentRepository(session)
 
     async def create(self, payload: PaymentCreate, idempotency_key: str) -> tuple[Payment, bool]:
-        """Return (payment, created); all writes share the caller's transaction."""
+        """Возвращает (платёж, создан ли он); все записи используют транзакцию вызывающего кода."""
         fingerprint = request_fingerprint(payload)
         existing = await self._payments.by_idempotency_key(idempotency_key)
         if existing:
